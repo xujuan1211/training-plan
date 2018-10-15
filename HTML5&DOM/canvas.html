@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas</title>
+</head>
+<body>
+
+<canvas id="main" width="300" height="200"></canvas>
+<input type="file" id="file">
+<img src="" alt="" id="imagePreview">
+
+<script>
+    const main = document.querySelector('#main');
+    const imagePreview = document.querySelector('#imagePreview');
+    const ctx = main.getContext('2d');
+
+    const fileInput = document.querySelector('#file');
+    fileInput.addEventListener('change', function () {
+        const file = fileInput.files[0];
+        const fr = new FileReader();
+
+        fr.readAsDataURL(file);
+
+        fr.onload = function () {
+            imagePreview.src = fr.result;
+            ctx.drawImage(imagePreview, 0, 0, 300, 200);
+
+            const base64 = main.toDataURL('image/jpeg', 1);
+            console.log(base64);
+        };
+    });
+
+    var ajax = new XMLHttpRequest();
+
+    ajax.open('post', 'localhost/path/to/user.action', true);
+
+    var f = new FormData;
+
+    f.append('id', 1);
+    f.append('file', file);
+
+    ajax.send(f);
+
+    ajax.onreadystatechange = function () {
+        if (ajax.status == 200) {
+            ajax.responseText // 后台的反馈
+        }
+    };
+
+    ajax.upload.onprogress = function (e) {
+        if (e.lengthComputable) {
+            e.total / e.uploaded
+        }
+    };
+
+
+    /* var ws = new WebSocket('ws://192.12.xxx');
+     ws.onmessage = function (e) {
+     e.message //
+     };
+     ws.send('还好，给我发个红包');
+
+
+     //
+
+     appSocketServer(function (socketClient) {
+     socketClient.onmessage = function (e) {
+     e.message // 给我一个红包
+     if(e.message === '红包'){
+     socketClient.send('');
+     }
+     };
+     });*/
+</script>
+
+<figure>
+    <img src="">
+    <figcaption>图片的
+        <mark>标题</mark>
+    </figcaption>
+    <p>asdfasdfas</p>
+</figure>
+
+<input type="text" list="data">
+<datalist id="data">
+    <option value="1">
+    <option value="2">
+    <option value="3">
+    <option value="4">
+</datalist>
+
+<input type="range" max="100" min="0" value="20">
+
+<progress value="12" max="100" min="0"></progress>
+
+
+</body>
+</html>
